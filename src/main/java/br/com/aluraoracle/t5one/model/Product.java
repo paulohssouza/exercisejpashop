@@ -82,12 +82,12 @@ public class Product {
 
     @Override
     public String toString() {
-        return  "\nid= " + id +
-                "\nname= '" + name + '\'' +
-                "\ndescription= '" + description + '\'' +
-                "\nprice= " + price +
-                "\ndateInsert= " + dateInsert +
-                "\ncategory= " + category.getName() +
+        return  "\nID= " + id +
+                "\nNome= '" + name + '\'' +
+                "\nDescrição= '" + description + '\'' +
+                "\nPreço= " + price +
+                "\nData inlcusão= " + dateInsert +
+                "\nCategoria= " + category.getName() +
                 "\n----------------------------------------";
     }
 }

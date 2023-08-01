@@ -3,18 +3,21 @@ package br.com.aluraoracle.t5one.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tbcategory")
-public class Category {
+@Table(name = "tbcustomers")
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @Column(length = 11)
+    private String cpf;
 
-    public Category() {
+    public Customer() {
     }
 
-    public Category(String name) {
+    public Customer(String name, String cpf) {
         this.name = name;
+        this.cpf = cpf;
     }
 
     public Integer getId() {
@@ -33,11 +36,20 @@ public class Category {
         this.name = name;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     @Override
     public String toString() {
-        return "Category{" +
-                "ID=" + id +
+        return  "\nCliente: " +
+                "\nID= " + id +
                 "\nNome= '" + name + '\'' +
-                "\n---------------------------------";
+                "\nCPF= '" + cpf + '\'' +
+                "\n------------------------------------------";
     }
 }
