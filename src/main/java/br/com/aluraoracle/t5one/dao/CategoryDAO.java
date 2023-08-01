@@ -18,4 +18,9 @@ public class CategoryDAO {
     public void update(Category category) {
         this.entityManager.merge(category);
     }
+
+    public void remove(Category category) {
+        category = this.entityManager.merge(category);
+        this.entityManager.remove(category);
+    }
 }

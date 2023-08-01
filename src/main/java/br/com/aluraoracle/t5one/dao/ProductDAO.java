@@ -3,6 +3,7 @@ package br.com.aluraoracle.t5one.dao;
 import br.com.aluraoracle.t5one.model.Product;
 import jakarta.persistence.EntityManager;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductDAO {
@@ -16,12 +17,33 @@ public class ProductDAO {
         this.entityManager.persist(product);
     }
 
-    public Product searchId(Integer id) {
-        return entityManager.find(Product.class, id);
+    public Product searchById(Integer id) {
+        return this.entityManager.find(Product.class, id);
     }
 
     public List<Product> search() {
         String jpql = "SELECT p FROM Product AS p";
-        return entityManager.createQuery(jpql, Product.class).getResultList();
+        return this.entityManager.createQuery(jpql, Product.class).getResultList();
+    }
+
+    public List<Product> searchByName(String name) {
+        String jpql = "select p from Product p where p.name = :name";
+        return this.entityManager.createQuery(jpql, Product.class)
+                .setParameter("name", name)
+                .getResultList();
+    }
+
+    public List<Product> searchByCategoryName(String categoryName) {
+        String jpql = "select p from Product p where p.category.name = :categoryName";
+        return this.entityManager.createQuery(jpql, Product.class)
+                .setParameter("categoryName", categoryName)
+                .getResultList();
+    }
+
+    public BigDecimal searchByNameReturningPrice(String name) {
+        String jpql = "select p.price from Product p where p.name = :name";
+        return this.entityManager.createQuery(jpql, BigDecimal.class)
+                .setParameter("name", name)
+                .getSingleResult();
     }
 }
