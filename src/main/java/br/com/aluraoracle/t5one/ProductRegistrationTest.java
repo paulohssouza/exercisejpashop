@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 
 public class ProductRegistrationTest {
     public static void main(String[] args) {
-        insertProduct();
         Integer id = 1;
         EntityManager entityManager = JPAUtil.getEntityManager();
         ProductDAO productDAO = new ProductDAO(entityManager);
