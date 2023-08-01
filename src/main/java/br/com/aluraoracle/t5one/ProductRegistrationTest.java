@@ -1,10 +1,9 @@
 package br.com.aluraoracle.t5one;
 
+import br.com.aluraoracle.t5one.dao.ProductDAO;
 import br.com.aluraoracle.t5one.model.Product;
+import br.com.aluraoracle.t5one.util.JPAUtil;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
 import java.math.BigDecimal;
 
 public class ProductRegistrationTest {
@@ -14,14 +13,12 @@ public class ProductRegistrationTest {
         product.setDescription("Aparelho Redmi 12 nova lançamento da Xiaomi.");
         product.setPrice(new BigDecimal("1500.00"));
 
-        try(EntityManagerFactory entityManagerFactory = Persistence
-                .createEntityManagerFactory("exercisejpashop")) {
+        EntityManager entityManager = JPAUtil.getEntityManager();
+        ProductDAO productDAO = new ProductDAO(entityManager);
 
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-            entityManager.persist(product);
-            entityManager.getTransaction().commit();
-            entityManager.close();
-        }
+        entityManager.getTransaction().begin();
+        productDAO.insert(product);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 }
