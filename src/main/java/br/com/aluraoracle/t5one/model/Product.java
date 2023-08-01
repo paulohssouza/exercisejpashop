@@ -12,10 +12,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @Column(length = 600)
     private String description;
     private BigDecimal price;
+    @Column(name = "date_insert")
     private LocalDate dateInsert;
-    @Enumerated(EnumType.STRING)
+    @JoinColumn(name = "category_id")
+    @ManyToOne
     private Category category;
 
     public Product(String name, String description, BigDecimal price, Category category) {
@@ -81,6 +84,8 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
+                ", dateInsert=" + dateInsert +
+                ", category=" + category.getName() +
                 '}';
     }
 }
