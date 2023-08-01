@@ -14,4 +14,8 @@ public class CategoryDAO {
     public void insert(Category category) {
         this.entityManager.persist(category);
     }
+
+    public void update(Category category) {
+        this.entityManager.merge(category);
+    }
 }

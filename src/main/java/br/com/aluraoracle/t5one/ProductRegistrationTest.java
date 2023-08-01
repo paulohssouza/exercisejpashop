@@ -10,6 +10,14 @@ import java.math.BigDecimal;
 
 public class ProductRegistrationTest {
     public static void main(String[] args) {
+        insertProduct();
+        Integer id = 1;
+        EntityManager entityManager = JPAUtil.getEntityManager();
+        ProductDAO productDAO = new ProductDAO(entityManager);
+        System.out.println(productDAO.search());
+    }
+
+    private static void insertProduct() {
         Category smartphones = new Category("SMARTPHONES");
         Product product = new Product("Xiaomi Redmi",
                 "Aparelho Redmi 12 novo lançamento da Xiaomi.",
