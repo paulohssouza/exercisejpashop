@@ -19,7 +19,7 @@ public class Request {
     private LocalDate date;
     @ManyToOne
     private Customer customer;
-    @OneToMany
+    @OneToMany(mappedBy = "request")
     private List<ItemOrdered> itemOrderedList;
 
     public Request() {
@@ -90,5 +90,11 @@ public class Request {
                 customer +
                 "\n" + itemOrderedList +
                 "\n-------------------------------------";
+    }
+
+    public void addItem(ItemOrdered itemOrdered) {
+        itemOrdered.setRequest(this);
+        this.itemOrderedList.add(itemOrdered);
+
     }
 }

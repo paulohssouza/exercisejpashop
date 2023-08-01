@@ -20,8 +20,8 @@ public class ItemOrdered {
     public ItemOrdered() {
     }
 
-    public ItemOrdered(BigDecimal unitPrice, Integer quantity, Request request, Product product) {
-        this.unitPrice = unitPrice;
+    public ItemOrdered(Integer quantity, Request request, Product product) {
+        this.unitPrice = product.getPrice();
         this.quantity = quantity;
         this.request = request;
         this.product = product;
@@ -75,4 +75,6 @@ public class ItemOrdered {
                 "\nQuantidade=" + quantity +
                 "\n-----------------------------------------";
     }
+
+
 }
