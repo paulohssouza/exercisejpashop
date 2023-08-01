@@ -3,6 +3,7 @@ package br.com.aluraoracle.t5one.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tbproduct")
@@ -13,6 +14,17 @@ public class Product {
     private String name;
     private String description;
     private BigDecimal price;
+    private LocalDate dateInsert;
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    public Product(String name, String description, BigDecimal price, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.dateInsert = LocalDate.now();
+        this.category = category;
+    }
 
     public Integer getId() {
         return id;
@@ -44,6 +56,22 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public LocalDate getDateInsert() {
+        return dateInsert;
+    }
+
+    public void setDateInsert(LocalDate dateInsert) {
+        this.dateInsert = dateInsert;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
