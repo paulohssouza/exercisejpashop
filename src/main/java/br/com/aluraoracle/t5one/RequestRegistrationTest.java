@@ -12,6 +12,9 @@ import jakarta.persistence.EntityManager;
 
 public class RequestRegistrationTest {
     public static void main(String[] args) {
+
+    }
+    private void insertRequest() {
         EntityManager entityManager = JPAUtil.getEntityManager();
         ProductDAO productDAO = new ProductDAO(entityManager);
 

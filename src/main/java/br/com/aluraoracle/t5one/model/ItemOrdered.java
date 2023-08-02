@@ -76,6 +76,4 @@ public class ItemOrdered {
                 "\nQuantidade=" + quantity +
                 "\n-----------------------------------------";
     }
-
-
 }
