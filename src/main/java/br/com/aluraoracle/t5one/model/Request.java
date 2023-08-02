@@ -13,20 +13,19 @@ public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String description;
     @Column(name = "total_value")
     private BigDecimal totalValue;
     private LocalDate date;
     @ManyToOne
     private Customer customer;
-    @OneToMany(mappedBy = "request")
+    @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     private List<ItemOrdered> itemOrderedList;
 
     public Request() {
     }
 
-    public Request(String description, Customer customer) {
-        this.description = description;
+    public Request(Customer customer) {
+        this.totalValue = BigDecimal.valueOf(0);
         this.date = LocalDate.now();
         this.customer = customer;
         itemOrderedList = new ArrayList<>();
@@ -38,14 +37,6 @@ public class Request {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public BigDecimal getTotalValue() {
@@ -84,7 +75,6 @@ public class Request {
     public String toString() {
         return "\nPedido:" +
                 "\nID= " + id +
-                "\nDescrição= '" + description + '\'' +
                 "\nValor Total= " + totalValue +
                 "\nData= " + date +
                 customer +
@@ -95,6 +85,9 @@ public class Request {
     public void addItem(ItemOrdered itemOrdered) {
         itemOrdered.setRequest(this);
         this.itemOrderedList.add(itemOrdered);
-
+        this.totalValue = this.totalValue.add(
+                itemOrdered.getUnitPrice().multiply(
+                        new BigDecimal(itemOrdered.getQuantity()))
+        );
     }
 }
