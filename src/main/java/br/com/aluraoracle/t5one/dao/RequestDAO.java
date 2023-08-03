@@ -1,13 +1,14 @@
 package br.com.aluraoracle.t5one.dao;
 
 import br.com.aluraoracle.t5one.model.Request;
+import br.com.aluraoracle.t5one.vo.SalesReportVo;
 import jakarta.persistence.EntityManager;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public class RequestDAO {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public RequestDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -23,12 +24,14 @@ public class RequestDAO {
                 .getSingleResult();
     }
 
-    public List<Object[]> generateSalesReport() {
-        String jpql = "select product.name, sum(itemOrdered.quantity), " +
-                "max(request.date) from Request request join " +
+    public List<SalesReportVo> generateSalesReport() {
+        String jpql = "select new br.com.aluraoracle.t5one.vo.SalesReportVo(" +
+                "product.name, sum(itemOrdered.quantity), " +
+                "max(request.date)) from Request request join " +
                 "request.itemOrderedList itemOrdered join " +
-                "itemOrdered.product product group by product.name";
-        return entityManager.createQuery(jpql, Object[].class)
+                "itemOrdered.product product group by product.name " +
+                "order by itemOrdered.quantity desc";
+        return entityManager.createQuery(jpql, SalesReportVo.class)
         .getResultList();
     }
 }
