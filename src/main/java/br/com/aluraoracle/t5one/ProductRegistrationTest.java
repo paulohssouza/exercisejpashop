@@ -10,13 +10,13 @@ import java.math.BigDecimal;
 
 public class ProductRegistrationTest {
     public static void main(String[] args) {
-        insertProduct();
         Integer id = 1;
         EntityManager entityManager = JPAUtil.getEntityManager();
         ProductDAO productDAO = new ProductDAO(entityManager);
         System.out.println(productDAO.searchById(1));
         System.out.println(productDAO.search());
         System.out.println(productDAO.searchByNameReturningPrice("Samsumg 360"));
+        System.out.println(productDAO.searchByCategoryName("SMARTPHONES"));
 
 
     }
