@@ -24,6 +24,13 @@ public class RequestDAO {
                 .getSingleResult();
     }
 
+    public Request searchRequestWithCustomer(Long id) {
+        String jpql = "select r from Request r join fetch r.customer where r.id = :id";
+        return entityManager.createQuery(jpql, Request.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
     public List<SalesReportVo> generateSalesReport() {
         String jpql = "select new br.com.aluraoracle.t5one.vo.SalesReportVo(" +
                 "product.name, sum(itemOrdered.quantity), " +
