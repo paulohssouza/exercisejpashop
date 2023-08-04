@@ -13,9 +13,9 @@ public class ItemOrdered {
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
     private Integer quantity;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Request request;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
     public ItemOrdered() {

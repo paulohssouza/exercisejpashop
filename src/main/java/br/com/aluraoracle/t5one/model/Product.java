@@ -20,7 +20,7 @@ public class Product {
     @Column(name = "date_insert")
     private LocalDate dateInsert;
     @JoinColumn(name = "category_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
     public Product() {

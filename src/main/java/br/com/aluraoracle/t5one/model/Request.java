@@ -16,7 +16,7 @@ public class Request {
     @Column(name = "total_value")
     private BigDecimal totalValue;
     private LocalDate date;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     private List<ItemOrdered> itemOrderedList;

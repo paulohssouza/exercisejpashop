@@ -13,4 +13,11 @@ public class CustomerDAO {
     public void insert(Customer customer) {
         this.entityManager.persist(customer);
     }
+
+    public Customer searchById(int id) {
+        String jpql = "select c from Customer c where c.id = :id";
+        return entityManager.createQuery(jpql, Customer.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 }
