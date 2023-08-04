@@ -2,8 +2,10 @@ package br.com.aluraoracle.t5one.dao;
 
 import br.com.aluraoracle.t5one.model.Product;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ProductDAO {
@@ -44,5 +46,24 @@ public class ProductDAO {
         return this.entityManager.createQuery(jpql, BigDecimal.class)
                 .setParameter("name", name)
                 .getSingleResult();
+    }
+
+    public List<Product> searchWithParameters(String name, BigDecimal price, LocalDate date) {
+        String jpql = "select p from Product p where 1=1";
+        if(name != null && name.isEmpty()) jpql += " and p.name = :name";
+
+        if(price != null) jpql += " and p.price = :price";
+
+        if(date != null) jpql += " and p.dateInsert = :date";
+
+
+        TypedQuery<Product> typedQuery = entityManager.createQuery(jpql, Product.class);
+        if(name != null && name.isEmpty()) typedQuery.setParameter("name", name);
+
+        if(price != null) typedQuery.setParameter("price", price);
+
+        if(date != null) typedQuery.setParameter("date", date);
+
+        return typedQuery.getResultList();
     }
 }
