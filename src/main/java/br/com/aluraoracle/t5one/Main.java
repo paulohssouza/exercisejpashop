@@ -1,5 +1,6 @@
 package br.com.aluraoracle.t5one;
 
+import br.com.aluraoracle.t5one.dao.ProductDAO;
 import br.com.aluraoracle.t5one.dao.RequestDAO;
 import br.com.aluraoracle.t5one.model.Request;
 import br.com.aluraoracle.t5one.util.JPAUtil;
@@ -17,5 +18,9 @@ public class Main {
         request = requestDAO.searchRequestWithCustomer(1L);
         entityManager.close();
         System.out.println(request.getCustomer().getName());
+
+        entityManager = JPAUtil.getEntityManager();
+        ProductDAO productDAO = new ProductDAO(entityManager);
+        System.out.println(productDAO.searchWithCriteria("Xiaomi Redmi 12", null, null));
     }
 }

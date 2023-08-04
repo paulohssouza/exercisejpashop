@@ -3,6 +3,10 @@ package br.com.aluraoracle.t5one.dao;
 import br.com.aluraoracle.t5one.model.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -65,5 +69,25 @@ public class ProductDAO {
         if(date != null) typedQuery.setParameter("date", date);
 
         return typedQuery.getResultList();
+    }
+
+    public List<Product> searchWithCriteria(String name, BigDecimal price, LocalDate date) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        Predicate predicate = criteriaBuilder.and();
+        if(name != null && !name.isEmpty()) {
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("name"), name));
+        }
+
+        if(price != null) {
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("price"), price));
+        }
+
+        if(date != null) {
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("date"), date));
+        };
+        criteriaQuery.where(predicate);
+        return entityManager.createQuery(criteriaQuery).getResultList();
     }
 }
