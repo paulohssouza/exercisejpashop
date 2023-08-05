@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Table(name = "tbproduct")
 @NamedQuery(name = "Product.productForCategory",
         query = "select p from Product p where p.category.name = :categoryName")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
