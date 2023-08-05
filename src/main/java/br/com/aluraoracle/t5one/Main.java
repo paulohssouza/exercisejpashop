@@ -21,6 +21,6 @@ public class Main {
 
         entityManager = JPAUtil.getEntityManager();
         ProductDAO productDAO = new ProductDAO(entityManager);
-        System.out.println(productDAO.searchWithCriteria("Xiaomi Redmi 12", null, null));
+        System.out.println(productDAO.searchWithCriteria("Iphone 14", null, null));
     }
 }

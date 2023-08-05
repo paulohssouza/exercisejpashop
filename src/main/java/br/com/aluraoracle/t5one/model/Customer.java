@@ -8,16 +8,22 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    @Column(length = 11)
-    private String cpf;
+    @Embedded
+    private PersonalData personalData;
 
     public Customer() {
     }
 
     public Customer(String name, String cpf) {
-        this.name = name;
-        this.cpf = cpf;
+        personalData = new PersonalData(name, cpf);
+    }
+
+    public String getName() {
+        return this.personalData.getName();
+    }
+
+    public String getCpf() {
+        return this.personalData.getCpf();
     }
 
     public Integer getId() {
@@ -28,28 +34,11 @@ public class Customer {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     @Override
     public String toString() {
         return  "\nCliente: " +
                 "\nID= " + id +
-                "\nNome= '" + name + '\'' +
-                "\nCPF= '" + cpf + '\'' +
+                "\n" + personalData +
                 "\n------------------------------------------";
     }
 }
